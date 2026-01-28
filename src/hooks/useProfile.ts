@@ -8,8 +8,6 @@ const useProfile = (): [
 	const { profiles, setProfiles } = useContext(UserContext);
 
 	const exitProfile = (name: string): void => {
-		console.log("Выход из профиля: ", name);
-		console.log("Текущее состояние профилей:", profiles);
 		const newProfiles = profiles.map((profile) => {
 			if (profile.name === name) {
 				return { ...profile, isLogined: false };
@@ -21,8 +19,6 @@ const useProfile = (): [
 	};
 
 	const loginProfile = (name: string): void => {
-		console.log("Вход в профиль: ", name);
-		console.log("Текущее состояние профилей:", profiles);
 		// Проверяем, есть ли пользователь с таким именем
 		const profileIndex = profiles.findIndex(
 			(profile) => profile.name === name,
@@ -38,10 +34,6 @@ const useProfile = (): [
 						newProfile,
 					]),
 				);
-				console.log(
-					"Добавление нового профиля:",
-					newProfile,
-				);
 				setProfiles([...profiles, newProfile]);
 			} catch (e) {
 				console.error(e);
@@ -56,10 +48,6 @@ const useProfile = (): [
 				localStorage.setItem(
 					"Профили",
 					JSON.stringify(newProfiles),
-				);
-				console.log(
-					"Изменение существующего профиля:",
-					newProfiles,
 				);
 				setProfiles(newProfiles);
 			} catch (e) {

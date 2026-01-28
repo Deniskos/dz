@@ -11,10 +11,12 @@
 		"format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\""
 	},
 	"dependencies": {
+		"@reduxjs/toolkit": "^2.11.2",
 		"axios": "^1.13.2",
 		"classnames": "^2.5.1",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
+		"react-redux": "^9.2.0",
 		"react-router-dom": "^7.11.0"
 	},
 	"devDependencies": {
@@ -29,8 +31,8 @@
 		"eslint-plugin-react-hooks": "^7.0.1",
 		"eslint-plugin-react-refresh": "^0.4.24",
 		"globals": "^16.5.0",
+		"prettier": "^3.0.0",
 		"sass": "^1.97.1",
-		"vite": "^7.2.4",
-		"prettier": "^3.0.0"
+		"vite": "^7.2.4"
 	}
 }

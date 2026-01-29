@@ -1,5 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { Provider } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { UserProvider } from "./context/UserProvider.js";
 import { RequiredAuth } from "./helpers/RequiredAuth.js";
@@ -12,6 +13,7 @@ import { Main } from "./pages/Main/Main";
 import { Movie } from "./pages/Movie/Movie";
 import { Profile } from "./pages/Profile/Profile";
 import { getFilm } from "./services/movieApi.js";
+import { store } from "./store/store.js";
 // Получаем элемент
 const rootElement: HTMLElement | null = document.getElementById("root");
 
@@ -51,13 +53,13 @@ const router = createBrowserRouter([
 			},
 			{
 				path: "/movie/:id",
-				element: <Movie />,
-				loader: getFilm,
-				errorElement: (
+				element: (
 					<RequiredAuth>
-						<ErrorPage />
+						<Movie />
 					</RequiredAuth>
 				),
+				loader: getFilm,
+				errorElement: <ErrorPage />,
 			},
 			{
 				path: "/favorites",
@@ -69,13 +71,19 @@ const router = createBrowserRouter([
 			},
 		],
 	},
+	{
+		path: "*",
+		element: <>Страница ошибки</>,
+	},
 ]);
 
 // Рендерим приложение
 root.render(
 	<StrictMode>
-		<UserProvider>
-			<RouterProvider router={router} />
-		</UserProvider>
+		<Provider store={store}>
+			<UserProvider>
+				<RouterProvider router={router} />
+			</UserProvider>
+		</Provider>
 	</StrictMode>,
 );

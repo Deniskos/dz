@@ -1,6 +1,5 @@
 import axios, { AxiosError } from "axios";
 import { useContext } from "react";
-import { Film } from "../../components/FilmItem/interface";
 import { UserContext } from "../../context/UserContext";
 import { serializeFilmsSafe } from "../../helpers/serializeFilmsSafe";
 import Button from "../Button/Button";
@@ -11,11 +10,14 @@ import NotFound from "../NotFound/NotFound";
 
 import { API_KEY, API_URL } from "../../constants";
 
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import { Movie } from "../../interfaces";
+import { RootState } from "../../store/store";
 import styles from "./styles.module.css";
 
 interface SearchProps {
-	setFilmList: (films: Film[] | []) => void;
+	setFilmList: (films: Movie[] | []) => void;
 }
 
 const MOVIE_NOT_FOUND = "Movie not found!";
@@ -25,6 +27,11 @@ const Search = ({ setFilmList }: SearchProps) => {
 	const [error, setError] = useState<string>("");
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const { isLogined } = useContext(UserContext);
+
+	const userFavorites = useSelector(
+		(store: RootState) => store.favorite.movies,
+	);
+
 	const isNotFound = error === MOVIE_NOT_FOUND;
 	const navigate = useNavigate();
 
@@ -50,7 +57,12 @@ const Search = ({ setFilmList }: SearchProps) => {
 				`${API_URL}/?apikey=${API_KEY}&s=${searchValue}&plot=full`,
 			);
 			if (response.data?.Response === "True") {
-				setFilmList(serializeFilmsSafe(response.data));
+				setFilmList(
+					serializeFilmsSafe(
+						response.data,
+						userFavorites,
+					),
+				);
 			} else {
 				setFilmList([]);
 				setError(response.data.Error);

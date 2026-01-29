@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import Favorite from "../Favorite/Favorite";
-import { Film } from "./interface";
+import { Movie } from "../../interfaces";
+import FavoriteLink from "../FavoriteLink/FavoriteLink";
 import styles from "./styles.module.css";
 
 interface FilmItemProps {
-	film: Film;
+	film: Movie;
 }
 
 const FilmItem = ({ film }: FilmItemProps) => {
@@ -22,9 +22,11 @@ const FilmItem = ({ film }: FilmItemProps) => {
 				<div className={styles["image-wrapper"]}>
 					<img src={`${film.poster}`} alt="" />
 				</div>
-				<h3 className={styles["film-name"]}>{film.title}</h3>
+				<h3 className={styles["film-name"]}>
+					{film.title}
+				</h3>
 			</Link>
-			<Favorite isFavorite={film.isFavorit} />
+			<FavoriteLink filmData={film} />
 		</li>
 	);
 };

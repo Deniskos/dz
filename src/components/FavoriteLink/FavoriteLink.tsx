@@ -1,4 +1,5 @@
 import cn from "classnames";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Movie } from "../../interfaces";
 import { addMovie, deleteMovie } from "../../store/favorive.slice";
@@ -10,7 +11,8 @@ interface FavoriteLinkProps {
 }
 
 const FavoriteLink = ({ filmData }: FavoriteLinkProps) => {
-	const { isFavorite } = filmData;
+	// const { isFavorite } = filmData;
+	const [isFavorite, setIsFavorite] = useState(filmData.isFavorite);
 	const dispatch = useDispatch<AppDispatch>();
 	const handlerFavorite = (
 		event: React.MouseEvent<HTMLAnchorElement>,
@@ -19,9 +21,11 @@ const FavoriteLink = ({ filmData }: FavoriteLinkProps) => {
 
 		if (isFavorite) {
 			dispatch(deleteMovie(filmData));
+			setIsFavorite(false);
 			return;
 		}
 		dispatch(addMovie(filmData));
+		setIsFavorite(true);
 	};
 	return (
 		<a

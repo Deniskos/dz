@@ -1,7 +1,7 @@
 import cn from "classnames";
 import { useDispatch } from "react-redux";
 import { Movie } from "../../interfaces";
-import { addMovies } from "../../store/favorive.slice";
+import { addMovie, deleteMovie } from "../../store/favorive.slice";
 import { AppDispatch } from "../../store/store";
 import styles from "./styles.module.css";
 
@@ -17,9 +17,11 @@ const FavoriteLink = ({ filmData }: FavoriteLinkProps) => {
 	) => {
 		event.preventDefault();
 
-		if (!isFavorite) {
-			dispatch(addMovies(filmData));
+		if (isFavorite) {
+			dispatch(deleteMovie(filmData));
+			return;
 		}
+		dispatch(addMovie(filmData));
 	};
 	return (
 		<a

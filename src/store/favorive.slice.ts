@@ -15,16 +15,23 @@ const favoriteSlice = createSlice({
 	name: "favorite",
 	initialState,
 	reducers: {
-		addMovies: (store, action: PayloadAction<Movie>) => {
+		addMovie: (store, action: PayloadAction<Movie>) => {
 			store.movies.push({
 				...action.payload,
 				isFavorite: true,
 			});
 			store.count += 1;
 		},
+		deleteMovie: (store, action: PayloadAction<Movie>) => {
+			store.movies = store.movies.filter((movie) => {
+				const { payload } = action;
+				return movie.imdbID !== payload.imdbID;
+			});
+			store.count -= 1;
+		},
 	},
 });
 
-export const { addMovies } = favoriteSlice.actions;
+export const { addMovie, deleteMovie } = favoriteSlice.actions;
 
 export default favoriteSlice.reducer;

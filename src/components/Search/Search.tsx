@@ -12,12 +12,12 @@ import { API_KEY, API_URL } from "../../constants";
 
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { Movie } from "../../interfaces";
+import { ShortMovie } from "../../interfaces";
 import { RootState } from "../../store/store";
 import styles from "./styles.module.css";
 
 interface SearchProps {
-	setFilmList: (films: Movie[] | []) => void;
+	setFilmList: (films: ShortMovie[] | []) => void;
 }
 
 const MOVIE_NOT_FOUND = "Movie not found!";

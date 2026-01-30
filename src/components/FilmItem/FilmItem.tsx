@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import { Movie } from "../../interfaces";
+import { ShortMovie } from "../../interfaces";
 import FavoriteLink from "../FavoriteLink/FavoriteLink";
 import styles from "./styles.module.css";
 
 interface FilmItemProps {
-	film: Movie;
+	film: ShortMovie;
 }
 
 const FilmItem = ({ film }: FilmItemProps) => {
@@ -26,7 +26,7 @@ const FilmItem = ({ film }: FilmItemProps) => {
 					{film.title}
 				</h3>
 			</Link>
-			<FavoriteLink filmData={film} />
+			<FavoriteLink shortMovieData={film} />
 		</li>
 	);
 };

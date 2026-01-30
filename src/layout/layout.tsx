@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Outlet } from "react-router-dom";
 import Header from "../components/Header/Header";
 import { UserContext } from "../context/UserContext";
@@ -9,18 +9,8 @@ import styles from "./styles.module.css";
 export const Layout = () => {
 	const [loginProfile, exitProfile] = useProfile();
 
-	const {
-		profiles,
-		currentUserName,
-		setCurrentUserName,
-		isLogined,
-		setIsLogined,
-		loginRef,
-	} = useContext(UserContext);
-
-	useEffect(() => {
-		console.log("Профайл в layout", profiles);
-	}, [profiles]);
+	const { currentUserName, setCurrentUserName, setIsLogined, loginRef } =
+		useContext(UserContext);
 
 	const exitHandler = () => {
 		exitProfile(currentUserName);

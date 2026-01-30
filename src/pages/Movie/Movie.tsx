@@ -3,39 +3,53 @@ import { useLoaderData } from "react-router-dom";
 import FavoriteLink from "../../components/FavoriteLink/FavoriteLink";
 import Rating from "../../components/Rating/Rating";
 import Title from "../../components/Title/Title";
-import { MovieData, MovieInfoItem } from "../../interfaces";
+import { FullMovieData, MovieInfoItem } from "../../interfaces";
 
+import { useSelector } from "react-redux";
+import { checkIsFavorite } from "../../helpers/checkIsFavorite";
+import { takeMovieShortData } from "../../helpers/takeMovieShortData";
+import { RootState } from "../../store/store";
 import styles from "./styles.module.css";
 
 export const Movie = () => {
-	const filmData = useLoaderData() as MovieData | null;
-	if (!filmData) {
+	const movieData = useLoaderData() as FullMovieData | null;
+
+	if (!movieData) {
 		return <div className={styles["loading"]}>Загрузка...</div>;
 	}
+
+	const favoritefilms = useSelector(
+		(store: RootState) => store.favorite.movies,
+	);
+
+	const isFavorite = checkIsFavorite(movieData.imdbID, favoritefilms);
+	const movie = { ...movieData, isFavorite: isFavorite };
+	const shortMovieData = takeMovieShortData(movie);
+
 	const movieInfo: MovieInfoItem[] = [
 		{
 			title: "Тип",
-			desc: filmData.Type || "Не указано",
+			desc: movie.Type || "Не указано",
 		},
 		{
 			title: "Дата выхода",
-			desc: filmData.Released || "Не указана",
+			desc: movie.Released || "Не указана",
 		},
 		{
 			title: "Бюджет",
-			desc: filmData.BoxOffice || "Не указан",
+			desc: movie.BoxOffice || "Не указан",
 		},
 		{
 			title: "Длительность",
-			desc: filmData.Runtime || "Не указана",
+			desc: movie.Runtime || "Не указана",
 		},
 		{
 			title: "Жанр",
-			desc: filmData.Genre || "Не указан",
+			desc: movie.Genre || "Не указан",
 		},
 		{
 			title: "Актеры",
-			desc: filmData.Actors || "Не указаны",
+			desc: movie.Actors || "Не указаны",
 		},
 	];
 
@@ -45,7 +59,7 @@ export const Movie = () => {
 				<p className={styles["upper-title"]}>
 					Поиск фильмов
 				</p>
-				<Title size="h2">{filmData.Title}</Title>
+				<Title size="h2">{movie.Title}</Title>
 			</header>
 			<main className={styles["main"]}>
 				<div
@@ -55,8 +69,8 @@ export const Movie = () => {
 					)}
 				>
 					<img
-						src={filmData.Poster}
-						alt={`Постер фильма ${filmData.Title}`}
+						src={movie.Poster}
+						alt={`Постер фильма ${movie.Title}`}
 					/>
 				</div>
 				<div
@@ -72,7 +86,7 @@ export const Movie = () => {
 							]
 						}
 					>
-						{filmData.Plot ||
+						{movie.Plot ||
 							"Описание отсутствует"}
 					</div>
 					<div
@@ -83,19 +97,21 @@ export const Movie = () => {
 						<Rating
 							position="static"
 							rating={
-								filmData.imdbRating
+								movie.imdbRating
 							}
 						/>
 						<FavoriteLink
-							filmData={filmData}
+							shortMovieData={
+								shortMovieData
+							}
 						/>
 					</div>
 
 					<ul className={styles["movie-info"]}>
 						{movieInfo.map(
-							(movie, index) => (
+							(infoItem, index) => (
 								<li
-									key={`${movie.title}-${index}`}
+									key={`${infoItem.title}-${index}`}
 									className={
 										styles[
 											"info-item"
@@ -110,7 +126,7 @@ export const Movie = () => {
 										}
 									>
 										{
-											movie.title
+											infoItem.title
 										}
 									</span>
 									<span
@@ -121,7 +137,7 @@ export const Movie = () => {
 										}
 									>
 										{
-											movie.desc
+											infoItem.desc
 										}
 									</span>
 								</li>
@@ -131,7 +147,7 @@ export const Movie = () => {
 				</div>
 			</main>
 
-			{filmData.Awards && (
+			{movie.Awards && (
 				<section className={styles["awards"]}>
 					{" "}
 					<div className={styles["text-wrapper"]}>
@@ -143,7 +159,7 @@ export const Movie = () => {
 								]
 							}
 						>
-							{filmData.Awards}
+							{movie.Awards}
 						</div>
 					</div>
 				</section>

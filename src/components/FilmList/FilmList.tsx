@@ -2,11 +2,11 @@ import React from "react";
 
 import FilmItem from "../FilmItem/FilmItem";
 
-import { Movie } from "../../interfaces";
+import { ShortMovie } from "../../interfaces";
 import styles from "./styles.module.css";
 
 interface FilmListProps {
-	films: Movie[] | [];
+	films: ShortMovie[] | [];
 }
 
 const FilmList = ({ films }: FilmListProps) => {

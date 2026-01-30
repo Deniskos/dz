@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Movie } from "../interfaces";
+import { ShortMovie } from "../interfaces";
 
 interface FavoriteState {
 	count: number;
-	movies: Movie[];
+	movies: ShortMovie[];
 }
 
 const initialState: FavoriteState = {
@@ -15,14 +15,14 @@ const favoriteSlice = createSlice({
 	name: "favorite",
 	initialState,
 	reducers: {
-		addMovie: (store, action: PayloadAction<Movie>) => {
+		addMovie: (store, action: PayloadAction<ShortMovie>) => {
 			store.movies.push({
 				...action.payload,
 				isFavorite: true,
 			});
 			store.count += 1;
 		},
-		deleteMovie: (store, action: PayloadAction<Movie>) => {
+		deleteMovie: (store, action: PayloadAction<ShortMovie>) => {
 			store.movies = store.movies.filter((movie) => {
 				const { payload } = action;
 				return movie.imdbID !== payload.imdbID;

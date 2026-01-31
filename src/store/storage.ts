@@ -56,8 +56,6 @@ export function safeFavoriteState<T>(userFavorite: T): void {
 		localStorage.removeItem("Профили");
 	}
 
-	console.log("profiles!!!", profiles);
-
 	if (profiles) {
 		const updatedProfiles = profiles.map((profile) => {
 			if (profile.isLogined) {

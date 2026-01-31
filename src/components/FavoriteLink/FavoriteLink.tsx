@@ -2,7 +2,7 @@ import cn from "classnames";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { ShortMovie } from "../../interfaces";
-import { addMovie, deleteMovie } from "../../store/favorive.slice";
+import { addMovie, deleteMovie } from "../../store/favorite.slice";
 import { AppDispatch } from "../../store/store";
 import styles from "./styles.module.css";
 

@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { ShortMovie } from "../interfaces";
 import { useDispatch } from "react-redux";
-import { setFavoriteFromStorage } from "../store/favorive.slice";
+import { setFavoriteFromStorage } from "../store/favorite.slice";
 
 const useProfile = (): [
 	loginProfile: (name: string) => void,

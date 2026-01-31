@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
-import { clearFavorite } from "../../store/favorive.slice";
+import { clearFavorite } from "../../store/favorite.slice";
 import { RootState } from "../../store/store";
 import { MenuProps } from "./Menu.props";
 import styles from "./styles.module.css";

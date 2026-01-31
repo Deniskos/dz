@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import favoriteReducer from "./favorive.slice";
+import favoriteReducer from "./favorite.slice";
 import { safeFavoriteState } from "./storage";
 import { ProfileType, ShortMovie } from "../interfaces";
 import useProfile from "../hooks/useProfile";

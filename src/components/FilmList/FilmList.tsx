@@ -1,12 +1,12 @@
 import React from "react";
 
 import FilmItem from "../FilmItem/FilmItem";
-import { Film } from "../FilmItem/interface";
 
+import { ShortMovie } from "../../interfaces";
 import styles from "./styles.module.css";
 
 interface FilmListProps {
-	films: Film[] | [];
+	films: ShortMovie[] | [];
 }
 
 const FilmList = ({ films }: FilmListProps) => {

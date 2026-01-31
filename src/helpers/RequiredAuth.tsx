@@ -5,6 +5,7 @@ import { UserContext } from "../context/UserContext";
 
 export const RequiredAuth = ({ children }: { children: ReactNode }) => {
 	const { isLogined } = useContext(UserContext);
+
 	if (!isLogined) {
 		return <Navigate to="/login" replace />;
 	}

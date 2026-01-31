@@ -1,15 +1,23 @@
 import cn from "classnames";
 import React, { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
+import { clearFavorite } from "../../store/favorite.slice";
+import { RootState } from "../../store/store";
 import { MenuProps } from "./Menu.props";
 import styles from "./styles.module.css";
 
 const Menu = ({ exitHandler, loginRef }: MenuProps) => {
+	const dispatch = useDispatch();
+	const favoriteCount = useSelector(
+		(store: RootState) => store.favorite.movies.length,
+	);
 	const { currentUserName, isLogined } = useContext(UserContext);
 	const clickHandler = (event: React.MouseEvent) => {
 		if (isLogined) {
 			exitHandler();
+			dispatch(clearFavorite());
 		} else {
 			loginRef.current?.focus();
 		}
@@ -65,6 +73,20 @@ const Menu = ({ exitHandler, loginRef }: MenuProps) => {
 								>
 									Мои
 									фильмы
+									{favoriteCount !==
+										0 && (
+										<span
+											className={cn(
+												styles[
+													"favoriteCount"
+												],
+											)}
+										>
+											{
+												favoriteCount
+											}
+										</span>
+									)}
 								</NavLink>
 							</li>
 							<li

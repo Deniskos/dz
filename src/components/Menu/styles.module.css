@@ -36,3 +36,17 @@
 .nav-link.active {
 	color: #fff;
 }
+
+.favoriteCount {
+	margin-left: 8px;
+	background-color: rgba(123, 110, 246, 1);
+	border-radius: 20px;
+	padding: 2px 7px;
+
+	font-weight: 600;
+	font-style: SemiBold;
+	font-size: 14px;
+	line-height: 24px;
+	letter-spacing: 2%;
+	color: rgba(255, 255, 255, 1);
+}

@@ -1,4 +1,4 @@
-export interface MovieData {
+export interface FullMovieData {
 	Type: string;
 	Released: string;
 	BoxOffice: string;
@@ -10,6 +10,8 @@ export interface MovieData {
 	Plot: string;
 	imdbRating: string;
 	Awards: string;
+	imdbID: string;
+	isFavorite?: boolean;
 	[key: string]: any; // для других возможных полей
 }
 
@@ -21,4 +23,14 @@ export interface MovieInfoItem {
 export interface ProfileType {
 	name: string;
 	isLogined: boolean;
+	favorites: ShortMovie[];
+}
+
+export interface ShortMovie {
+	poster: string;
+	title: string;
+	type: string;
+	year: string;
+	imdbID: string;
+	isFavorite: boolean;
 }

@@ -23,6 +23,7 @@ export interface MovieInfoItem {
 export interface ProfileType {
 	name: string;
 	isLogined: boolean;
+	favorites: ShortMovie[];
 }
 
 export interface ShortMovie {

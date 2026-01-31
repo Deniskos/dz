@@ -1,16 +1,24 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
+import { ShortMovie } from "../interfaces";
+import { useDispatch } from "react-redux";
+import { setFavoriteFromSrorage } from "../store/favorive.slice";
 
 const useProfile = (): [
 	loginProfile: (name: string) => void,
-	exitProfile: (name: string) => void,
+	exitProfile: (name: string, favorites: ShortMovie[]) => void,
 ] => {
 	const { profiles, setProfiles } = useContext(UserContext);
+	const dispatch = useDispatch();
 
-	const exitProfile = (name: string): void => {
+	const exitProfile = (name: string, favorites: ShortMovie[]): void => {
 		const newProfiles = profiles.map((profile) => {
 			if (profile.name === name) {
-				return { ...profile, isLogined: false };
+				return {
+					...profile,
+					isLogined: false,
+					favorites,
+				};
 			}
 			return profile;
 		});
@@ -25,7 +33,11 @@ const useProfile = (): [
 		);
 		// Пользователя нет - добавляем нового
 		if (profileIndex === -1) {
-			const newProfile = { name, isLogined: true };
+			const newProfile = {
+				name,
+				isLogined: true,
+				favorites: [],
+			};
 			try {
 				localStorage.setItem(
 					"Профили",
@@ -39,11 +51,17 @@ const useProfile = (): [
 				console.error(e);
 			}
 		} else {
-			const newProfiles = profiles.map((profile, index) =>
-				index === profileIndex
-					? { ...profile, isLogined: true }
-					: profile,
-			);
+			const newProfiles = profiles.map((profile, index) => {
+				if (index === profileIndex) {
+					dispatch(
+						setFavoriteFromSrorage(
+							profile.favorites,
+						),
+					);
+					return { ...profile, isLogined: true };
+				}
+				return profile;
+			});
 			try {
 				localStorage.setItem(
 					"Профили",

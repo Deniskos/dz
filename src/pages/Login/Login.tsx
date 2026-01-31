@@ -8,12 +8,17 @@ import useProfile from "../../hooks/useProfile";
 
 export const Login = () => {
 	const navigate = useNavigate();
-	const { currentUserName, setCurrentUserName, isLogined, setIsLogined, loginRef } = useContext(UserContext);
-	const [loginProfile, exitProfile, profiles] = useProfile();
+	const {
+		currentUserName,
+		setCurrentUserName,
+		isLogined,
+		setIsLogined,
+		loginRef,
+	} = useContext(UserContext);
+	const [loginProfile, exitProfile] = useProfile();
 	const changeName = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setCurrentUserName(e.target.value);
 	};
-
 	const login = () => {
 		if (!currentUserName) {
 			loginRef.current?.focus();
@@ -26,7 +31,14 @@ export const Login = () => {
 	return (
 		<div className="loginForm">
 			<Title size="h1">Вход</Title>
-			<Input ref={loginRef} type="text" value={currentUserName} onChange={changeName} name="auth" placeholder="Ваше имя" />
+			<Input
+				ref={loginRef}
+				type="text"
+				value={currentUserName}
+				onChange={changeName}
+				name="auth"
+				placeholder="Ваше имя"
+			/>
 			<div>
 				<Button onClick={login}>Войти в профиль</Button>
 			</div>

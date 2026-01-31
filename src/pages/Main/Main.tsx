@@ -9,7 +9,6 @@ import styles from "./styles.module.css";
 
 export const Main = () => {
 	const [filmsList, setFilmList] = useState<ShortMovie[]>([]);
-	console.log("filmsList", filmsList);
 	return (
 		<div className={styles["main-page"]}>
 			<div className={styles["search-head"]}>

@@ -21,8 +21,6 @@ export async function getFilm({ params }: LoaderFunctionArgs) {
 			});
 		}
 
-		console.log("response.data", response.data);
-
 		return response.data;
 	} catch (error) {
 		if (error instanceof Response) {

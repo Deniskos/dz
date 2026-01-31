@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { ShortMovie } from "../interfaces";
 import { useDispatch } from "react-redux";
-import { setFavoriteFromSrorage } from "../store/favorive.slice";
+import { setFavoriteFromStorage } from "../store/favorive.slice";
 
 const useProfile = (): [
 	loginProfile: (name: string) => void,
@@ -54,7 +54,7 @@ const useProfile = (): [
 			const newProfiles = profiles.map((profile, index) => {
 				if (index === profileIndex) {
 					dispatch(
-						setFavoriteFromSrorage(
+						setFavoriteFromStorage(
 							profile.favorites,
 						),
 					);

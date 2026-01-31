@@ -28,7 +28,7 @@ const favoriteSlice = createSlice({
 				return movie.imdbID !== payload.imdbID;
 			});
 		},
-		setFavoriteFromSrorage: (
+		setFavoriteFromStorage: (
 			store,
 			action: PayloadAction<ShortMovie[]>,
 		) => {
@@ -40,7 +40,7 @@ const favoriteSlice = createSlice({
 	},
 });
 
-export const { addMovie, deleteMovie, clearFavorite, setFavoriteFromSrorage } =
+export const { addMovie, deleteMovie, clearFavorite, setFavoriteFromStorage } =
 	favoriteSlice.actions;
 
 export default favoriteSlice.reducer;

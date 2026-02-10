@@ -1,17 +1,20 @@
 import { useContext } from "react";
-import { UserContext } from "../context/UserContext";
+import { AppContext } from "../context/AppContext";
 import { ShortMovie } from "../interfaces";
 import { useDispatch } from "react-redux";
 import { setFavoriteFromStorage } from "../store/favorite.slice";
 
 const useProfile = (): [
 	loginProfile: (name: string) => void,
-	exitProfile: (name: string, favorites: ShortMovie[]) => void,
+	exitStorageProfile: (name: string, favorites: ShortMovie[]) => void,
 ] => {
-	const { profiles, setProfiles } = useContext(UserContext);
+	const { profiles, setProfiles } = useContext(AppContext);
 	const dispatch = useDispatch();
 
-	const exitProfile = (name: string, favorites: ShortMovie[]): void => {
+	const exitStorageProfile = (
+		name: string,
+		favorites: ShortMovie[],
+	): void => {
 		const newProfiles = profiles.map((profile) => {
 			if (profile.name === name) {
 				return {
@@ -74,7 +77,7 @@ const useProfile = (): [
 		}
 	};
 
-	return [loginProfile, exitProfile];
+	return [loginProfile, exitStorageProfile];
 };
 
 export default useProfile;

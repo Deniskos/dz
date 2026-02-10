@@ -1,6 +1,4 @@
 import axios, { AxiosError } from "axios";
-import { useContext } from "react";
-import { UserContext } from "../../context/UserContext";
 import { serializeFilmsSafe } from "../../helpers/serializeFilmsSafe";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
@@ -23,10 +21,10 @@ interface SearchProps {
 const MOVIE_NOT_FOUND = "Movie not found!";
 
 const Search = ({ setFilmList }: SearchProps) => {
+	const { isLogined } = useSelector((store: RootState) => store.profile);
 	const [searchValue, setSearchValue] = useState<string>("");
 	const [error, setError] = useState<string>("");
 	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const { isLogined } = useContext(UserContext);
 
 	const userFavorites = useSelector(
 		(store: RootState) => store.favorite.movies,

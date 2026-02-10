@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
 import Menu from "../Menu/Menu";
-import { MenuProps } from "../Menu/Menu.props";
 import styles from "./styles.module.css";
 
-const Header = ({ ...props }: MenuProps) => {
+const Header = () => {
 	return (
 		<header className={styles["header__root"]}>
 			<div className={styles["header__logo"]}>
@@ -11,7 +10,7 @@ const Header = ({ ...props }: MenuProps) => {
 					<img src="/logo.svg" />
 				</Link>
 			</div>
-			<Menu {...props} />
+			<Menu />
 		</header>
 	);
 };

@@ -1,15 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ShortMovie } from "../interfaces";
-import { loadUserFavorites } from "./storage";
-
-export const STORAGE_PROFILES_STATE = "Профили";
+import { ShortMovie, ProfileType } from "../interfaces";
+import { loadUserProfile } from "./storage";
+import { STORAGE_PROFILES_STATE } from "../constants";
 
 interface FavoriteState {
 	movies: ShortMovie[];
 }
 
 const initialState: FavoriteState = {
-	movies: loadUserFavorites<ShortMovie[]>(STORAGE_PROFILES_STATE) || [],
+	movies:
+		loadUserProfile<ProfileType>(STORAGE_PROFILES_STATE)
+			?.favorites || [],
 };
 
 const favoriteSlice = createSlice({

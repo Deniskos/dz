@@ -1,13 +1,12 @@
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { ProfileType } from "../interfaces";
-import { UserContext } from "./UserContext";
+import { AppContext } from "./AppContext";
 
-interface UserProviderProps {
+interface AppProviderProps {
 	children: ReactNode;
 }
 
-export const UserProvider = ({ children }: UserProviderProps) => {
-	const [currentUserName, setCurrentUserName] = useState<string>("");
+export const AppProvider = ({ children }: AppProviderProps) => {
 	const [isLogined, setIsLogined] = useState<boolean>(false);
 	const loginRef = useRef<HTMLInputElement>();
 
@@ -73,7 +72,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 			(profiles || []).forEach((profile) => {
 				if (profile.isLogined) {
 					setIsLogined(true);
-					setCurrentUserName(profile.name);
+					// setCurrentUserName(profile.name);
 				}
 			});
 		}
@@ -81,18 +80,14 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 	}, [profiles]);
 
 	return (
-		<UserContext.Provider
+		<AppContext.Provider
 			value={{
 				profiles,
 				setProfiles,
-				currentUserName,
-				setCurrentUserName,
-				isLogined,
-				setIsLogined,
 				loginRef,
 			}}
 		>
 			{children}
-		</UserContext.Provider>
+		</AppContext.Provider>
 	);
 };

@@ -1,23 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
 import Title from "../../components/Title/Title";
-import { UserContext } from "../../context/UserContext";
+import { AppContext } from "../../context/AppContext";
 import useProfile from "../../hooks/useProfile";
+import { setUserProfile } from "../../store/userProfile.slice";
 
 export const Login = () => {
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const {
-		currentUserName,
-		setCurrentUserName,
-		isLogined,
-		setIsLogined,
-		loginRef,
-	} = useContext(UserContext);
-	const [loginProfile, exitProfile] = useProfile();
+	const [currentUserName, changeCurrentUserName] = useState<string>("");
+	const { loginRef } = useContext(AppContext);
+	const [loginProfile] = useProfile();
 	const changeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setCurrentUserName(e.target.value);
+		changeCurrentUserName(e.target.value);
 	};
 	const login = () => {
 		if (!currentUserName) {
@@ -25,7 +23,7 @@ export const Login = () => {
 			return null;
 		}
 		loginProfile(currentUserName);
-		setIsLogined(true);
+		dispatch(setUserProfile(currentUserName));
 		navigate("/");
 	};
 	return (

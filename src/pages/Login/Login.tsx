@@ -27,7 +27,7 @@ export const Login = () => {
 		navigate("/");
 	};
 	return (
-		<div className="loginForm">
+		<div className="loginForm" role="auth">
 			<Title size="h1">Вход</Title>
 			<Input
 				ref={loginRef}
@@ -36,6 +36,8 @@ export const Login = () => {
 				onChange={changeName}
 				name="auth"
 				placeholder="Ваше имя"
+				autoFocus
+				aria-label="Авторизация пользователя"
 			/>
 			<div>
 				<Button onClick={login}>Войти в профиль</Button>

@@ -20,12 +20,16 @@ const userProfileSlice = createSlice({
 	initialState,
 	reducers: {
 		setUserProfile: (store, action: PayloadAction<string>) => {
-			store.name = action.payload;
-			store.isLogined = true;
+			return {
+				name: action.payload,
+				isLogined: true,
+			};
 		},
 		clearProfile: (store) => {
-			store.name = "";
-			store.isLogined = false;
+			return {
+				name: "",
+				isLogined: false,
+			};
 		},
 	},
 });

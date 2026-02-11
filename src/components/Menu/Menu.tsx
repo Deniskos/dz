@@ -20,7 +20,7 @@ const Menu = () => {
 	const { loginRef } = useContext(AppContext);
 	const [loginProfile, exitStorageProfile] = useProfile();
 	const { name: userName, isLogined } = useSelector(
-		(store: RootState) => store.profile,
+		(store: RootState) => store.userProfile,
 	);
 
 	const exitProfile = () => {
@@ -37,7 +37,7 @@ const Menu = () => {
 		}
 	};
 	return (
-		<menu className={styles.navigation}>
+		<menu role="navigation" className={styles.navigation}>
 			<nav className={styles.nav}>
 				<ul className={styles["nav-list"]}>
 					<li className={styles["nav-item"]}>

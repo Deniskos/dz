@@ -19,6 +19,22 @@ export function loadUserProfile<T>(key: string): T | undefined {
 	}
 }
 
+export function loadAllProfiles<T>(key: string): T | undefined {
+	try {
+		const jsonState = localStorage.getItem(key);
+		if (!jsonState) {
+			return undefined;
+		}
+
+		const parsedState = JSON.parse(jsonState);
+
+		return parsedState;
+	} catch (e) {
+		console.error(e);
+		return undefined;
+	}
+}
+
 export function safeFavoriteState<T>(userFavorite: T): void {
 	let profiles: ProfileType[] = [];
 	try {

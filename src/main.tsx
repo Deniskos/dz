@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { UserProvider } from "./context/UserProvider.js";
+import { AppProvider } from "./context/AppProvider.js";
 import { RequiredAuth } from "./helpers/RequiredAuth.js";
 import "./index.css";
 import { Layout } from "./layout/layout";
@@ -81,9 +81,9 @@ const router = createBrowserRouter([
 root.render(
 	<StrictMode>
 		<Provider store={store}>
-			<UserProvider>
+			<AppProvider>
 				<RouterProvider router={router} />
-			</UserProvider>
+			</AppProvider>
 		</Provider>
 	</StrictMode>,
 );

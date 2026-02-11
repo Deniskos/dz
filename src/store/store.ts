@@ -1,5 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import favoriteReducer from "./favorite.slice";
+import userProfileReducer from "./userProfile.slice";
+import allProfilesReducer from "./allProfiles.slice";
 import { safeFavoriteState } from "./storage";
 import { ProfileType, ShortMovie } from "../interfaces";
 import useProfile from "../hooks/useProfile";
@@ -7,6 +9,8 @@ import useProfile from "../hooks/useProfile";
 export const store = configureStore({
 	reducer: {
 		favorite: favoriteReducer,
+		userProfile: userProfileReducer,
+		profiles: allProfilesReducer,
 	},
 });
 

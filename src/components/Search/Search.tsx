@@ -1,6 +1,4 @@
 import axios, { AxiosError } from "axios";
-import { useContext } from "react";
-import { UserContext } from "../../context/UserContext";
 import { serializeFilmsSafe } from "../../helpers/serializeFilmsSafe";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
@@ -23,10 +21,12 @@ interface SearchProps {
 const MOVIE_NOT_FOUND = "Movie not found!";
 
 const Search = ({ setFilmList }: SearchProps) => {
+	const { isLogined } = useSelector(
+		(store: RootState) => store.userProfile,
+	);
 	const [searchValue, setSearchValue] = useState<string>("");
 	const [error, setError] = useState<string>("");
 	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const { isLogined } = useContext(UserContext);
 
 	const userFavorites = useSelector(
 		(store: RootState) => store.favorite.movies,
@@ -96,7 +96,7 @@ const Search = ({ setFilmList }: SearchProps) => {
 	};
 
 	return (
-		<div className={styles["search-root"]}>
+		<div className={styles["search-root"]} role="search">
 			<Input
 				value={searchValue}
 				onChange={(
@@ -109,6 +109,8 @@ const Search = ({ setFilmList }: SearchProps) => {
 				iconName="search-normal.svg"
 				disabled={isLoading}
 				onKeyDown={handleKeyDown}
+				aria-label="Поиск фильмов"
+				autoFocus
 			/>
 			<Button
 				onClick={getFilms}

@@ -1,6 +1,6 @@
 import { ProfileType } from "../interfaces";
 
-export function loadUserFavorites<T>(key: string): T | undefined {
+export function loadUserProfile<T>(key: string): T | undefined {
 	try {
 		const jsonState = localStorage.getItem(key);
 		if (!jsonState) {
@@ -8,11 +8,27 @@ export function loadUserFavorites<T>(key: string): T | undefined {
 		}
 
 		const parsedState = JSON.parse(jsonState);
-		const userFavorites = parsedState.find(
+		const userProfile = parsedState.find(
 			(profile: ProfileType) => profile.isLogined,
 		);
 
-		return userFavorites.favorites;
+		return userProfile;
+	} catch (e) {
+		console.error(e);
+		return undefined;
+	}
+}
+
+export function loadAllProfiles<T>(key: string): T | undefined {
+	try {
+		const jsonState = localStorage.getItem(key);
+		if (!jsonState) {
+			return undefined;
+		}
+
+		const parsedState = JSON.parse(jsonState);
+
+		return parsedState;
 	} catch (e) {
 		console.error(e);
 		return undefined;

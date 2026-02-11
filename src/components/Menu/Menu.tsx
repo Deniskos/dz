@@ -2,28 +2,42 @@ import cn from "classnames";
 import React, { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { UserContext } from "../../context/UserContext";
+import { AppContext } from "../../context/AppContext";
+import useProfile from "../../hooks/useProfile";
 import { clearFavorite } from "../../store/favorite.slice";
 import { RootState } from "../../store/store";
-import { MenuProps } from "./Menu.props";
+import { clearProfile } from "../../store/userProfile.slice";
 import styles from "./styles.module.css";
 
-const Menu = ({ exitHandler, loginRef }: MenuProps) => {
+const Menu = () => {
 	const dispatch = useDispatch();
 	const favoriteCount = useSelector(
 		(store: RootState) => store.favorite.movies.length,
 	);
-	const { currentUserName, isLogined } = useContext(UserContext);
+	const favorites = useSelector(
+		(state: RootState) => state.favorite.movies,
+	);
+	const { loginRef } = useContext(AppContext);
+	const [loginProfile, exitStorageProfile] = useProfile();
+	const { name: userName, isLogined } = useSelector(
+		(store: RootState) => store.userProfile,
+	);
+
+	const exitProfile = () => {
+		exitStorageProfile(userName, favorites);
+		dispatch(clearProfile());
+		dispatch(clearFavorite());
+	};
+
 	const clickHandler = (event: React.MouseEvent) => {
 		if (isLogined) {
-			exitHandler();
-			dispatch(clearFavorite());
+			exitProfile();
 		} else {
 			loginRef.current?.focus();
 		}
 	};
 	return (
-		<menu className={styles.navigation}>
+		<menu role="navigation" className={styles.navigation}>
 			<nav className={styles.nav}>
 				<ul className={styles["nav-list"]}>
 					<li className={styles["nav-item"]}>
@@ -113,10 +127,10 @@ const Menu = ({ exitHandler, loginRef }: MenuProps) => {
 											},
 										)
 									}
-									to={`/profile/${currentUserName}`}
+									to={`/profile/${userName}`}
 								>
 									{
-										currentUserName
+										userName
 									}
 								</NavLink>
 							</li>

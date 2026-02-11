@@ -1,17 +1,20 @@
-import { useContext } from "react";
-import { UserContext } from "../context/UserContext";
 import { ShortMovie } from "../interfaces";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setFavoriteFromStorage } from "../store/favorite.slice";
+import { RootState } from "../store/store";
+import { setProfiles } from "../store/allProfiles.slice";
 
 const useProfile = (): [
 	loginProfile: (name: string) => void,
-	exitProfile: (name: string, favorites: ShortMovie[]) => void,
+	exitStorageProfile: (name: string, favorites: ShortMovie[]) => void,
 ] => {
-	const { profiles, setProfiles } = useContext(UserContext);
+	const { profiles } = useSelector((store: RootState) => store);
 	const dispatch = useDispatch();
 
-	const exitProfile = (name: string, favorites: ShortMovie[]): void => {
+	const exitStorageProfile = (
+		name: string,
+		favorites: ShortMovie[],
+	): void => {
 		const newProfiles = profiles.map((profile) => {
 			if (profile.name === name) {
 				return {
@@ -23,7 +26,7 @@ const useProfile = (): [
 			return profile;
 		});
 		localStorage.setItem("Профили", JSON.stringify(newProfiles));
-		setProfiles(newProfiles);
+		dispatch(setProfiles(newProfiles));
 	};
 
 	const loginProfile = (name: string): void => {
@@ -46,7 +49,9 @@ const useProfile = (): [
 						newProfile,
 					]),
 				);
-				setProfiles([...profiles, newProfile]);
+				dispatch(
+					setProfiles([...profiles, newProfile]),
+				);
 			} catch (e) {
 				console.error(e);
 			}
@@ -67,14 +72,14 @@ const useProfile = (): [
 					"Профили",
 					JSON.stringify(newProfiles),
 				);
-				setProfiles(newProfiles);
+				dispatch(setProfiles(newProfiles));
 			} catch (e) {
 				console.error(e);
 			}
 		}
 	};
 
-	return [loginProfile, exitProfile];
+	return [loginProfile, exitStorageProfile];
 };
 
 export default useProfile;
